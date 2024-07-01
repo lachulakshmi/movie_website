@@ -12,6 +12,7 @@ urlpatterns = [
     path('movie/<int:movie_id>/add_review/', views.add_review, name='add_review'),
     path('add_movie/', add_movie, name='add_movie'),
 
+
 ]
 
 
