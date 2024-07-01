@@ -1,0 +1,16 @@
+<!-- templates/movies/add_category.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Category</title>
+</head>
+<body>
+    <h2>Add Category</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Category</button>
+    </form>
+    <p><a href="{% url 'home' %}">Back to Home</a></p>
+</body>
+</html>

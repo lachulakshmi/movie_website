@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ movie.title }}</title>
+</head>
+<body>
+    <h2>{{ movie.title }}</h2>
+    <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+    <p>{{ movie.description }}</p>
+    <p>Release Date: {{ movie.release_date }}</p>
+    <p>Actors: {{ movie.actors }}</p>
+    <p>Category: {{ movie.category.name }}</p>
+    <p><a href="{{ movie.youtube_trailer_link }}">Watch Trailer</a></p>
+    <h3>Reviews</h3>
+    <ul>
+        {% for review in reviews %}
+        <li>
+            <p>Rating: {{ review.rating }}</p>
+            <p>{{ review.comment }}</p>
+            <p>By: {{ review.user.username }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+    <p><a href="{% url 'add_review' movie.id %}">Add a review</a></p>
+    <p><a href="{% url 'home' %}">Back to Home</a></p>
+</body>
+</html>
+
