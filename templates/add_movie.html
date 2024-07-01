@@ -8,6 +8,8 @@
     <h1>Add Movie</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Add Movie</button>
         {{ form.non_field_errors }}
         <p>
             <label for="id_title">Title:</label>

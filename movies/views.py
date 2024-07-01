@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from rest_framework.generics import get_object_or_404
+
 from .forms import UserRegistrationForm, MovieForm, ReviewForm
 from .models import Movie, Category, Review
 from .forms import CategoryForm
@@ -93,3 +95,30 @@ def add_movie(request):
         form = MovieForm()
     return render(request, 'add_movie.html', {'form': form})
 
+def update_movie(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    if request.method == 'POST':
+        form = MovieForm(request.POST, instance=movie)
+        if form.is_valid():
+            form.save()
+            return redirect('movie_detail', movie_id=movie.id)
+    else:
+        form = MovieForm(instance=movie)
+    return render(request, 'update_movie.html', {'form': form, 'movie':movie})
+
+@login_required
+#def delete_movie(request, movie_id):
+ #   movie = get_object_or_404(Movie, id=movie_id)
+ #   if request.method == 'POST':
+#        movie.delete()
+ #       return redirect('movies')
+ #   return render(request, 'delete_movie.html', {'movie': movie})
+def delete_movie(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    movie.delete()
+    return redirect('home')
+
+@login_required
+def movie_list(request):
+    movies = Movie.objects.all()
+    return render(request, 'movies.html', {'movies': movies})
